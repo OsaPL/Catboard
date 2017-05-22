@@ -21,6 +21,7 @@ namespace catboard
             var kh = new KeyboardHook(true); //keyboard hook z klasy ponizej
             kh.KeyDown += Kh_KeyDown;
             kh.KeyUp += Kh_KeyUp;
+            notifyIcon1.Icon = this.Icon;
         }
         Keys lastkey;
         private void Kh_KeyDown(Keys key, bool Shift, bool Ctrl, bool Alt)//musi byc static??
