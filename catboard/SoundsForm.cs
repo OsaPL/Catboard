@@ -12,42 +12,79 @@ namespace catboard
 {
     public partial class SoundsForm : Form
     {
+        Form1 mainform;
         public SoundsForm(Form1 form)
         {
             InitializeComponent();
+            mainform = form;
+        }
+        private void SoundsForm_Load(object sender, EventArgs e)
+        {
             int i = 0;
             Label labellast = null;
-            TextBox textboxlast = null;
-            foreach (string strings in form.soundsList)
+            Button buttonlast = null;
+            foreach (string strings in mainform.soundsList)
             {
                 System.Windows.Forms.Label label = new System.Windows.Forms.Label();
-                label.Name = "L"+i;
-                System.Windows.Forms.TextBox textbox = new System.Windows.Forms.TextBox();
-                textbox.Name = "T"+i;
+                label.Name = "L" + i;
+                System.Windows.Forms.Button button = new System.Windows.Forms.Button();
+                button.Name = "" + i;
+                System.Windows.Forms.Button buttonRemove = new System.Windows.Forms.Button();
+                button.Name = "" + i;
                 this.Controls.Add(label);
-                this.Controls.Add(textbox);
-                if (i==0)
+                this.Controls.Add(button);
+                this.Controls.Add(buttonRemove);
+                if (i == 0)
                 {
                     label.Location = new Point(0, 0);
-                    label.Size = new Size(50, 20);
-                    textbox.Location = new Point(label.Right, label.Location.Y);
-                    textbox.Size = new Size(120, label.Height);
+                    label.Size = new Size(150, 20);
+                    button.Location = new Point(label.Right, label.Location.Y);
+                    button.Size = new Size(60, label.Height);
+                    buttonRemove.Location = new Point(button.Right, label.Location.Y);
+                    buttonRemove.Size = new Size(60, label.Height);
                 }
                 else
                 {
                     label.Location = new Point(labellast.Location.X, labellast.Bottom);
                     label.Size = labellast.Size;
-                    textbox.Location = new Point(label.Right, label.Location.Y);
-                    textbox.Size = new Size(120, label.Height);
+                    button.Location = new Point(label.Right, label.Location.Y);
+                    button.Size = new Size(60, label.Height);
+                    buttonRemove.Location = new Point(button.Right, label.Location.Y);
+                    buttonRemove.Size = new Size(60, label.Height);
                 }
                 labellast = label;
-                textboxlast = textbox;
-                textbox.Text = strings;
-                label.Text = label.Name;
+                buttonlast = buttonRemove;
+                button.Text = "Browse";
+                buttonRemove.Text = "Remove";
+
+
+                button.Click += new EventHandler(this.button_Click);
+                button.Click += new EventHandler(this.buttonRemove_Click);
+
+                label.Text = strings.Substring(strings.LastIndexOf("/") + 1);
                 i++;
             }
-            Size = new Size(textboxlast.Location.X+textboxlast.Width + 1, textboxlast.Location.Y +textboxlast.Height + 1);
-            textboxlast.Text = "kupa";
+            i+=2;
+            Size = new Size(buttonlast.Width * i, buttonlast.Height * i);
+            
+        }
+        private void button_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1;
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                int i = 0;
+                Int32.TryParse((sender as Button).Name, out i);
+
+                mainform.soundsList[i] = openFileDialog1.FileName;
+                
+            }
+        }
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+                
         }
     }
 }
