@@ -22,7 +22,16 @@ namespace catboard
             kh.KeyDown += Kh_KeyDown;
             kh.KeyUp += Kh_KeyUp;
             notifyIcon1.Icon = this.Icon;
+            soundsList = new List<string>();
+            if (!System.IO.File.Exists("Sounds/CustomSounds.dat"))
+            {
+                soundsList.Add("Sounds/meow.mp3");
+                soundsList.Add("Sounds/meow1.mp3");
+                soundsList.Add("Sounds/woof.mp3");
+                soundsList.Add("Sounds/woof2.mp3");
+            }
         }
+        public List<string> soundsList;
         Keys lastkey;
         private void Kh_KeyDown(Keys key, bool Shift, bool Ctrl, bool Alt)//musi byc static??
         {
@@ -50,15 +59,14 @@ namespace catboard
             WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer(); //odtwarzacz mp3 w tle
             int tmp=last;
             while (tmp == last) //by ominac powtarzanie sie tych samych dzwiekow pod rzad
-                last = RandNumber(0, 1000) % 4;
+                last = RandNumber(0, 500* soundsList.Count) % soundsList.Count;
 
-            switch (last)
+            int i = 0;
+            foreach(string strings in soundsList)
             {
-                case 0: wplayer.URL = "Sounds/meow.mp3"; break;
-                case 1: wplayer.URL = "Sounds/meow1.mp3"; break;
-                case 2: wplayer.URL = "Sounds/woof.mp3"; break;
-                case 3: wplayer.URL = "Sounds/woof2.mp3"; break;
-                default: break;
+                if (last == i)
+                    wplayer.URL = strings;
+                i++;
             }
             
             wplayer.controls.play();
@@ -73,6 +81,13 @@ namespace catboard
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        SoundsForm soundsform;
+        
+        private void SoundsButton_Click(object sender, EventArgs e)
+        {
+            soundsform = new SoundsForm(this);
+            soundsform.Show();
         }
     }
     public class KeyboardHook : IDisposable

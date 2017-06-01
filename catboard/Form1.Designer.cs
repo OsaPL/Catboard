@@ -34,6 +34,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SoundsButton = new System.Windows.Forms.Button();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,11 +67,22 @@
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
+            // SoundsButton
+            // 
+            this.SoundsButton.Location = new System.Drawing.Point(134, 20);
+            this.SoundsButton.Name = "SoundsButton";
+            this.SoundsButton.Size = new System.Drawing.Size(53, 22);
+            this.SoundsButton.TabIndex = 1;
+            this.SoundsButton.Text = "Sounds";
+            this.SoundsButton.UseVisualStyleBackColor = true;
+            this.SoundsButton.Click += new System.EventHandler(this.SoundsButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(187, 41);
+            this.Controls.Add(this.SoundsButton);
             this.Controls.Add(this.label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -91,6 +103,7 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
+        private System.Windows.Forms.Button SoundsButton;
     }
 }
 
