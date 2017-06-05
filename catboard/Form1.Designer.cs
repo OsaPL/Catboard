@@ -35,6 +35,8 @@
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SoundsButton = new System.Windows.Forms.Button();
+            this.radioButtonFix = new System.Windows.Forms.RadioButton();
+            this.radioButtonRand = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,11 +79,37 @@
             this.SoundsButton.UseVisualStyleBackColor = true;
             this.SoundsButton.Click += new System.EventHandler(this.SoundsButton_Click);
             // 
+            // radioButtonFix
+            // 
+            this.radioButtonFix.AutoSize = true;
+            this.radioButtonFix.Location = new System.Drawing.Point(72, 25);
+            this.radioButtonFix.Name = "radioButtonFix";
+            this.radioButtonFix.Size = new System.Drawing.Size(50, 17);
+            this.radioButtonFix.TabIndex = 2;
+            this.radioButtonFix.Text = "Fixed";
+            this.radioButtonFix.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonRand
+            // 
+            this.radioButtonRand.AutoSize = true;
+            this.radioButtonRand.Checked = true;
+            this.radioButtonRand.Location = new System.Drawing.Point(1, 25);
+            this.radioButtonRand.Name = "radioButtonRand";
+            this.radioButtonRand.Size = new System.Drawing.Size(65, 17);
+            this.radioButtonRand.TabIndex = 3;
+            this.radioButtonRand.TabStop = true;
+            this.radioButtonRand.Text = "Random";
+            this.radioButtonRand.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.radioButtonRand.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.radioButtonRand.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(187, 41);
+            this.ClientSize = new System.Drawing.Size(193, 48);
+            this.Controls.Add(this.radioButtonRand);
+            this.Controls.Add(this.radioButtonFix);
             this.Controls.Add(this.SoundsButton);
             this.Controls.Add(this.label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -91,6 +119,7 @@
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Catboard";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -104,6 +133,8 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.Button SoundsButton;
+        private System.Windows.Forms.RadioButton radioButtonFix;
+        private System.Windows.Forms.RadioButton radioButtonRand;
     }
 }
 

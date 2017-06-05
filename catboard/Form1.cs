@@ -23,12 +23,25 @@ namespace catboard
             kh.KeyUp += Kh_KeyUp;
             notifyIcon1.Icon = this.Icon;
             soundsList = new List<string>();
-            if (!System.IO.File.Exists("Sounds/CustomSounds.dat"))
+            if (!System.IO.File.Exists("Sounds\\CustomSounds.dat"))
             {
-                soundsList.Add("Sounds/meow.mp3");
-                soundsList.Add("Sounds/meow1.mp3");
-                soundsList.Add("Sounds/woof.mp3");
-                soundsList.Add("Sounds/woof2.mp3");
+                soundsList.Add("Sounds\\meow.mp3");
+                soundsList.Add("Sounds\\meow1.mp3");
+                soundsList.Add("Sounds\\woof.mp3");
+                soundsList.Add("Sounds\\woof2.mp3");
+            }
+            else
+            {
+                string filepath = "Sounds\\CustomSounds.dat";
+                System.IO.FileInfo file = new System.IO.FileInfo(filepath);
+                file.Directory.Create(); // if the directory already exists, this method does nothing, just a failsafe
+                string[] settings = System.IO.File.ReadAllLines(file.FullName, Encoding.UTF8);
+                int i = 0;  
+                while (settings[i] != "")
+                {
+                    soundsList.Add(settings[i]);
+                    i++;
+                }
             }
         }
         public List<string> soundsList;
@@ -57,18 +70,27 @@ namespace catboard
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer(); //odtwarzacz mp3 w tle
-            int tmp=last;
-            while (tmp == last) //by ominac powtarzanie sie tych samych dzwiekow pod rzad
-                last = RandNumber(0, 500* soundsList.Count) % soundsList.Count;
-
-            int i = 0;
-            foreach(string strings in soundsList)
+            if (radioButtonRand.Checked)
             {
-                if (last == i)
-                    wplayer.URL = strings;
-                i++;
+                int tmp = last;
+                while (tmp == last) //by ominac powtarzanie sie tych samych dzwiekow pod rzad
+                    last = RandNumber(0, 500 * soundsList.Count) % soundsList.Count;
+
+                int i = 0;
+                foreach (string strings in soundsList)
+                {
+                    if (strings != "") {
+                        if (last == i)
+                            wplayer.URL = strings;
+                        i++;
+                    }
+
+                }
             }
-            
+            else
+            {
+
+            }
             wplayer.controls.play();
         }
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -86,8 +108,31 @@ namespace catboard
         
         private void SoundsButton_Click(object sender, EventArgs e)
         {
-            soundsform = new SoundsForm(this);
-            soundsform.Show();
+            if (radioButtonRand.Checked)
+            {
+                soundsform = new SoundsForm(this);
+                soundsform.Show();
+            }
+            else
+            {
+                //tutaj forma z fixed od klaudii
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string[] settings = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+            //cause Im dumb and also lazy ^ DONT LOOK AT THAT LINE ^
+            int i;
+            for (i = 0; i < soundsList.Count; i++)
+            {
+                settings[i] = soundsList[i].ToString();
+            }
+
+            string filepath = "Sounds\\CustomSounds.dat";
+            System.IO.FileInfo file = new System.IO.FileInfo(filepath);
+            file.Directory.Create();
+            System.IO.File.WriteAllLines(file.FullName, settings, Encoding.UTF8);
         }
     }
     public class KeyboardHook : IDisposable

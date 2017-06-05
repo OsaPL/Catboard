@@ -40,6 +40,7 @@
             this.buttonAdd.TabIndex = 0;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // SoundsForm
             // 
@@ -49,6 +50,7 @@
             this.Controls.Add(this.buttonAdd);
             this.Name = "SoundsForm";
             this.Text = "SoundsForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SoundsForm_FormClosed);
             this.Load += new System.EventHandler(this.SoundsForm_Load);
             this.ResumeLayout(false);
 
