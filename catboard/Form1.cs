@@ -50,7 +50,8 @@ namespace catboard
                     }
                     else
                     {
-                        soundsList.Add(settings[i]);
+                        if (System.IO.File.Exists(settings[i]))
+                            soundsList.Add(settings[i]);
                     }
 
                     i++;
