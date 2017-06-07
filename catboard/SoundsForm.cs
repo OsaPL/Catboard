@@ -30,7 +30,10 @@ namespace catboard
                 {
                     Label label;
                     if (this.Controls.Find("L" + i, true).Length <= 0)
+                    {
                         label = new System.Windows.Forms.Label();
+                        label.Click += new EventHandler(this.label_Click);
+                    }
                     else
                         label = this.Controls.Find("L" + i, true).FirstOrDefault() as Label;
                     label.Name = "L" + i;
@@ -120,6 +123,17 @@ namespace catboard
                 SoundsForm_Load(this, null);
             }
         }
+        private void label_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            int i = 0;
+            Int32.TryParse(label.Name.Substring(1), out i);
+            if (System.IO.File.Exists(mainform.soundsList[i])){
+                WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+                wplayer.URL = mainform.soundsList[i];
+                wplayer.controls.play();
+            }
+        }
         private void button_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1;
@@ -174,7 +188,7 @@ namespace catboard
             foreach (string strings in mainform.soundsList)
             {
                 if (strings == "")
-                    idtoremove.Insert(0, i);
+                    idtoremove.Insert(0, i); //doing so in reverse to not change the order of indexes
                 i++;
             }
             foreach (Int32 id in idtoremove)
