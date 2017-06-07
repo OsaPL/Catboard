@@ -17,6 +17,7 @@ namespace catboard
         {
             InitializeComponent();
             mainform = form;
+            mainform.childopen = true;
         }
         private void SoundsForm_Load(object sender, EventArgs e)
         {
@@ -36,14 +37,20 @@ namespace catboard
 
                     Button button;
                     if (this.Controls.Find("L" + i, true).Length <= 0)
+                    {
                         button = new System.Windows.Forms.Button();
+                        button.Click += new EventHandler(this.button_Click);
+                    }
                     else
                         button = this.Controls.Find("A" + i, true).FirstOrDefault() as Button;
                     button.Name = "A" + i;
 
                     Button buttonRemove;
                     if (this.Controls.Find("L" + i, true).Length <= 0)
+                    { 
                         buttonRemove = new System.Windows.Forms.Button();
+                        buttonRemove.Click += new EventHandler(this.buttonRemove_Click);
+                    }
                     else
                         buttonRemove = this.Controls.Find("R" + i, true).FirstOrDefault() as Button;
                     buttonRemove.Name = "R" + i;
@@ -77,8 +84,7 @@ namespace catboard
                     buttonRemove.Text = "Remove";
 
 
-                    button.Click += new EventHandler(this.button_Click);
-                    buttonRemove.Click += new EventHandler(this.buttonRemove_Click);
+                    
 
                     label.Text = strings.Substring(strings.LastIndexOf("\\") + 1);
                     i++;
@@ -158,7 +164,7 @@ namespace catboard
             mainform.soundsList.Add("");
             SoundsForm_Load(this, null);
         }
-
+        
         private void SoundsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             mainform.Focus(); //make usre it is focused after closing children
@@ -168,7 +174,7 @@ namespace catboard
             foreach (string strings in mainform.soundsList)
             {
                 if (strings == "")
-                    idtoremove.Add(i);
+                    idtoremove.Insert(0, i);
                 i++;
             }
             foreach (Int32 id in idtoremove)

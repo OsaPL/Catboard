@@ -23,6 +23,7 @@ namespace catboard
             kh.KeyUp += Kh_KeyUp;
             notifyIcon1.Icon = this.Icon;
             soundsList = new List<string>();
+            childopen = false;
             if (!System.IO.File.Exists("Sounds\\CustomSounds.dat"))
             {
                 soundsList.Add("Sounds\\meow.mp3");
@@ -39,7 +40,19 @@ namespace catboard
                 int i = 0;  
                 while (settings[i] != "")
                 {
-                    soundsList.Add(settings[i]);
+                    if (settings[i] == "Random")
+                    {
+                        radioButtonRand.Checked = true;
+                    }
+                    else if (settings[i] == "Fixed")
+                    {
+                        radioButtonFix.Checked = true;
+                    }
+                    else
+                    {
+                        soundsList.Add(settings[i]);
+                    }
+
                     i++;
                 }
             }
@@ -73,6 +86,7 @@ namespace catboard
             if (radioButtonRand.Checked)
             {
                 int tmp = last;
+                if (soundsList.Count > 1)
                 while (tmp == last) //by ominac powtarzanie sie tych samych dzwiekow pod rzad
                     last = RandNumber(0, 500 * soundsList.Count) % soundsList.Count;
 
@@ -104,10 +118,11 @@ namespace catboard
         {
             Close();
         }
-        SoundsForm soundsform;
-        
+        public SoundsForm soundsform;
+        public bool childopen;
         private void SoundsButton_Click(object sender, EventArgs e)
         {
+            childopen = true;
             if (radioButtonRand.Checked)
             {
                 soundsform = new SoundsForm(this);
@@ -128,11 +143,26 @@ namespace catboard
             {
                 settings[i] = soundsList[i].ToString();
             }
-
+            if (radioButtonFix.Checked)
+            {
+                settings[i] = "Fixed";
+            }
+            else
+            {
+                settings[i] = "Random";
+            }
             string filepath = "Sounds\\CustomSounds.dat";
             System.IO.FileInfo file = new System.IO.FileInfo(filepath);
             file.Directory.Create();
             System.IO.File.WriteAllLines(file.FullName, settings, Encoding.UTF8);
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            if (childopen == true)
+            {
+                soundsform.Focus();
+            }
         }
     }
     public class KeyboardHook : IDisposable
