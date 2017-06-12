@@ -62,7 +62,7 @@ namespace catboard
         Keys lastkey;
         private void Kh_KeyDown(Keys key, bool Shift, bool Ctrl, bool Alt)//musi byc static??
         {
-            label.Text = "Pressed: " + key + " (HOLD)";
+            label.Text = "Pressed: " + key.ToString() + " (HOLD)";
             if(lastkey != key)
                 Form1_KeyPress(this, null);
             lastkey = key;
@@ -88,19 +88,22 @@ namespace catboard
             {
                 int tmp = last;
                 if (soundsList.Count > 1)
-                while (tmp == last) //by ominac powtarzanie sie tych samych dzwiekow pod rzad
-                    last = RandNumber(0, 500 * soundsList.Count) % soundsList.Count;
-
-                int i = 0;
-                foreach (string strings in soundsList)
                 {
-                    if (strings != "") {
-                        if (last == i)
-                            wplayer.URL = strings;
-                        i++;
-                    }
-
+                    while (tmp == last) //by ominac powtarzanie sie tych samych dzwiekow pod rzad
+                        last = RandNumber(0, 500 * soundsList.Count) % soundsList.Count;
                 }
+                int i = 0;
+                    foreach (string strings in soundsList)
+                    {
+                        if (strings != "")
+                        {
+                            if (last == i)
+                                wplayer.URL = strings;
+                            i++;
+                        }
+
+                    }
+                
             }
             else
             {
@@ -120,6 +123,7 @@ namespace catboard
             Close();
         }
         public SoundsForm soundsform;
+        public fixedform fixedform;
         public bool childopen;
         private void SoundsButton_Click(object sender, EventArgs e)
         {
@@ -131,6 +135,8 @@ namespace catboard
             }
             else
             {
+                fixedform = new fixedform(this);
+                fixedform.Show();
                 //tutaj forma z fixed od klaudii
             }
         }
@@ -139,11 +145,7 @@ namespace catboard
         {
             string[] settings = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
             //cause Im dumb and also lazy ^ DONT LOOK AT THAT LINE ^
-            int i;
-            for (i = 0; i < soundsList.Count; i++)
-            {
-                settings[i] = soundsList[i].ToString();
-            }
+            int i=0;
             if (radioButtonFix.Checked)
             {
                 settings[i] = "Fixed";
@@ -152,6 +154,11 @@ namespace catboard
             {
                 settings[i] = "Random";
             }
+            for (i = 1; i < soundsList.Count; i++)
+            {
+                settings[i] = soundsList[i].ToString();
+            }
+
             string filepath = "Sounds\\CustomSounds.dat";
             System.IO.FileInfo file = new System.IO.FileInfo(filepath);
             file.Directory.Create();
@@ -162,7 +169,22 @@ namespace catboard
         {
             if (childopen == true)
             {
-                soundsform.Focus();
+                try
+                {
+                    soundsform.Focus();
+                }
+                catch (Exception er)
+                {
+
+                }
+                try
+                {
+                    fixedform.Focus();
+                }
+                catch (Exception er)
+                {
+
+                }
             }
         }
     }
