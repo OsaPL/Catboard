@@ -24,6 +24,7 @@ namespace catboard
             notifyIcon1.Icon = this.Icon;
             soundsList = new List<string>();
             childopen = false;
+            fixedsounds = false;
             if (!System.IO.File.Exists("Sounds\\CustomSounds.dat"))
             {
                 soundsList.Add("Sounds\\meow.mp3");
@@ -64,7 +65,7 @@ namespace catboard
         {
             label.Text = "Pressed: " + key.ToString() + " (HOLD)";
             if(lastkey != key)
-                Form1_KeyPress(this, null);
+                Form1_KeyPress(this, null,key);
             lastkey = key;
         }
         private void Kh_KeyUp(Keys key, bool Shift, bool Ctrl, bool Alt)//musi byc static??
@@ -81,7 +82,7 @@ namespace catboard
             return rnd;
         }
         int last=0;
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e,Keys key)
         {
             WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer(); //odtwarzacz mp3 w tle
             if (radioButtonRand.Checked)
@@ -107,9 +108,20 @@ namespace catboard
             }
             else
             {
-
+                foreach (string strings in soundsList)
+                {
+                    if (strings.IndexOf(" ") > -1)
+                    {
+                        if (key.ToString() == strings.Substring(0, strings.IndexOf(" ")))
+                        {
+                           wplayer.URL = fixedform.GetSound(key.ToString());
+                        }
+                    }
+                    
+                }
             }
             wplayer.controls.play();
+            wplayer.URL = String.Empty;
         }
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -125,6 +137,7 @@ namespace catboard
         public SoundsForm soundsform;
         public fixedform fixedform;
         public bool childopen;
+        public bool fixedsounds;
         private void SoundsButton_Click(object sender, EventArgs e)
         {
             childopen = true;
@@ -137,7 +150,6 @@ namespace catboard
             {
                 fixedform = new fixedform(this);
                 fixedform.Show();
-                //tutaj forma z fixed od klaudii
             }
         }
 
@@ -185,6 +197,18 @@ namespace catboard
                 {
 
                 }
+            }
+        }
+
+        private void radioButton_Click(object sender, EventArgs e)
+        {
+            if (radioButtonFix.Checked)
+            {
+                fixedsounds = true;
+            }
+            else
+            {
+                fixedsounds = false;
             }
         }
     }

@@ -854,7 +854,7 @@
             // 
             // buttonRight
             // 
-            this.buttonRight.Location = new System.Drawing.Point(378, 104);
+            this.buttonRight.Location = new System.Drawing.Point(368, 104);
             this.buttonRight.Margin = new System.Windows.Forms.Padding(0);
             this.buttonRight.Name = "buttonRight";
             this.buttonRight.Size = new System.Drawing.Size(20, 20);
@@ -864,7 +864,7 @@
             // 
             // buttonDown
             // 
-            this.buttonDown.Location = new System.Drawing.Point(358, 104);
+            this.buttonDown.Location = new System.Drawing.Point(348, 104);
             this.buttonDown.Margin = new System.Windows.Forms.Padding(0);
             this.buttonDown.Name = "buttonDown";
             this.buttonDown.Size = new System.Drawing.Size(20, 20);
@@ -874,7 +874,7 @@
             // 
             // buttonLeft
             // 
-            this.buttonLeft.Location = new System.Drawing.Point(338, 104);
+            this.buttonLeft.Location = new System.Drawing.Point(328, 104);
             this.buttonLeft.Margin = new System.Windows.Forms.Padding(0);
             this.buttonLeft.Name = "buttonLeft";
             this.buttonLeft.Size = new System.Drawing.Size(20, 20);
@@ -884,7 +884,7 @@
             // 
             // buttonUp
             // 
-            this.buttonUp.Location = new System.Drawing.Point(358, 84);
+            this.buttonUp.Location = new System.Drawing.Point(348, 84);
             this.buttonUp.Margin = new System.Windows.Forms.Padding(0);
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.Size = new System.Drawing.Size(20, 20);
@@ -896,7 +896,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 176);
+            this.ClientSize = new System.Drawing.Size(400, 126);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.buttonLeft);
             this.Controls.Add(this.buttonDown);

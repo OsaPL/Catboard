@@ -88,6 +88,7 @@
             this.radioButtonFix.TabIndex = 2;
             this.radioButtonFix.Text = "Fixed";
             this.radioButtonFix.UseVisualStyleBackColor = true;
+            this.radioButtonFix.Click += new System.EventHandler(this.radioButton_Click);
             // 
             // radioButtonRand
             // 
@@ -102,6 +103,7 @@
             this.radioButtonRand.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.radioButtonRand.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.radioButtonRand.UseVisualStyleBackColor = true;
+            this.radioButtonRand.Click += new System.EventHandler(this.radioButton_Click);
             // 
             // Form1
             // 
